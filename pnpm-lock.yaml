@@ -9,19 +9,19 @@ specifiers:
   esno: 0.14.1
   tsup: 5.12.1
   typescript: 4.6.2
-  vite: 2.8.6
+  vite: 2.9.1
   vitest: 0.7.10
 
 devDependencies:
   '@bryce-loskie/eslint-config': 1.0.7_eslint@8.11.0+typescript@4.6.2
   '@types/node': 17.0.23
-  '@vitejs/plugin-vue': 2.2.4_vite@2.8.6
+  '@vitejs/plugin-vue': 2.2.4_vite@2.9.1
   '@vitejs/plugin-vue-jsx': 1.3.8
   eslint: 8.11.0
   esno: 0.14.1
   tsup: 5.12.1_typescript@4.6.2
   typescript: 4.6.2
-  vite: 2.8.6
+  vite: 2.9.1
   vitest: 0.7.10
 
 packages:
@@ -671,14 +671,14 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-vue/2.2.4_vite@2.8.6:
+  /@vitejs/plugin-vue/2.2.4_vite@2.9.1:
     resolution: {integrity: sha512-ev9AOlp0ljCaDkFZF3JwC/pD2N4Hh+r5srl5JHM6BKg5+99jiiK0rE/XaRs3pVm1wzyKkjUy/StBSoXX5fFzcw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.6
+      vite: 2.9.1
     dev: true
 
   /@vue/babel-helper-vue-transform-on/1.0.2:
@@ -3157,8 +3157,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite/2.8.6:
-    resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
+  /vite/2.9.1:
+    resolution: {integrity: sha512-vSlsSdOYGcYEJfkQ/NeLXgnRv5zZfpAsdztkIrs7AZHV8RCMZQkwjo4DS5BnrYTqoWqLoUe1Cah4aVO4oNNqCQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
@@ -3206,7 +3206,7 @@ packages:
       local-pkg: 0.4.1
       tinypool: 0.1.2
       tinyspy: 0.3.0
-      vite: 2.8.6
+      vite: 2.9.1
     transitivePeerDependencies:
       - less
       - sass
