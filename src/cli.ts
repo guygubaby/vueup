@@ -40,6 +40,11 @@ const build = async() => {
     merge: false,
   })
 
+  if (!config) {
+    logger.error('No config found, for more info', c.underline('https://github.com/guygubaby/vueup'))
+    return
+  }
+
   const configNames = sources.map(s => basename(s)).join(', ')
   logger.log(c.green(`load config from ${c.bold(c.underline(configNames))}`))
 
@@ -54,7 +59,6 @@ const build = async() => {
 
   const buildPlugin = await resolveConfig(config)
 
-  logger.empty()
   logger.log(c.green('start building ...'))
   logger.empty()
 
