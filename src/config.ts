@@ -49,6 +49,8 @@ export const defineConfig = (options: BuildOptions): UserConfig => {
       dts({
         outputDir: outDir,
         compilerOptions: {
+          baseUrl: '.',
+          outDir,
           // Ensure ".d.ts" modules are generated
           declaration: true,
           // Skip ".js" generation
@@ -81,6 +83,7 @@ export const defineConfig = (options: BuildOptions): UserConfig => {
       rollupOptions: {
         external,
         output: {
+          dir: outDir,
           exports: 'named',
           format: 'esm',
           banner,

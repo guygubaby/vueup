@@ -1,6 +1,5 @@
 import { loadConfig } from 'unconfig'
 import type { UserConfig } from 'vite'
-import minimist from 'minimist'
 import { buildLib } from './build'
 
 const build = async() => {
@@ -21,15 +20,7 @@ const build = async() => {
     ],
     merge: true,
   })
-
-  const argv = minimist(process.argv.slice(2), {
-    boolean: ['watch'],
-    alias: {
-      w: 'watch',
-    },
-  })
-
-  await buildLib(config, argv.watch)
+  await buildLib(config)
 }
 
 build()
