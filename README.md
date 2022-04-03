@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/@bryce-loskie/vueup?color=a1b858&label=)](https://www.npmjs.com/package/@bryce-loskie/vueup)
 
-## Vueup makes it easy to define vue lib build options for vite config
+## Vueup makes it easy to build vue component lib
 
 ## Get Started
 
