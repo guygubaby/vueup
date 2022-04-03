@@ -11,20 +11,28 @@ pnpm i @bryce-loskie/vueup -D
 ```
 
 ```typescript
-// vite.config.ts
-import { resolve } from 'path'
-import { defineVueLibConfig } from '@bryce-loskie/vueup'
-
-const { plugins, build } = defineVueLibConfig({
-  name: 'foo',
-  entry: resolve(__dirname, './src/index.ts'),
-})
+// vueup.config.ts
+import { defineConfig } from '@bryce-loskie/vueup'
 
 export default defineConfig({
-  test: {},
-  plugins,
-  build,
+  entry: './src/raw/index.ts',
+  external: ['vue'],
+  formats: ['es', 'cjs'],
+  globals: {
+    vue: 'Vue',
+  },
+  clean: true,
 })
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "dev": "vueup --watch",
+    "build": "vueup",
+  }
+}
 ```
 
 ## License

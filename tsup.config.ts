@@ -6,11 +6,14 @@ export const tsup: Options = {
   clean: true,
   format: ['cjs', 'esm'],
   dts: true,
-  entryPoints: [
+  entry: [
     'src/index.ts',
+    'src/cli.ts',
   ],
   external: [
     'vite',
+    'vite-plugin-dts',
+    'typescript',
     '@vitejs/plugin-vue',
     '@vitejs/plugin-vue-jsx',
   ],
