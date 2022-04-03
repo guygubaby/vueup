@@ -1,6 +1,6 @@
 {
   "name": "@bryce-loskie/vueup",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Vueup makes it easy to build vue component lib",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -35,7 +35,7 @@
   "scripts": {
     "prepublishOnly": "pnpm build",
     "build": "tsup",
-    "dev": "pnpm build -- --watch",
+    "dev": "esno src/cli.ts",
     "release": "bumpp --commit --push --tag",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "pnpm lint -- --fix"

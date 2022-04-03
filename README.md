@@ -6,9 +6,13 @@
 
 ## Get Started
 
+### Install
+
 ```bash
 pnpm i @bryce-loskie/vueup -D
 ```
+
+### Configuration
 
 ```typescript
 // vueup.config.ts
@@ -18,12 +22,23 @@ export default defineConfig({
   entry: './src/raw/index.ts',
   external: ['vue'],
   formats: ['es', 'cjs'],
-  globals: {
-    vue: 'Vue',
-  },
   clean: true,
 })
 ```
+
+Or
+
+```json
+// package.json
+{
+  "vueup": {
+    "entry": "./src/index.ts",
+    "external": ["vue"]
+  }
+}
+```
+
+### Scripts
 
 ```json
 // package.json
