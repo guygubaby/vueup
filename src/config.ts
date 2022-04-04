@@ -19,7 +19,8 @@ interface MiscType {
   sourcemap?: boolean
   minify?: boolean
   watch?: boolean
-  include?: string | string[]
+
+  include: string | string[]
   exclude?: string | string[]
 }
 
