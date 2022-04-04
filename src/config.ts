@@ -18,6 +18,8 @@ interface MiscType {
   sourcemap?: boolean
   minify?: boolean
   watch?: boolean
+  include?: string | string[]
+  exclude?: string | string[]
 }
 
 export type BuildOptions = LibType & RollupType & MiscType
@@ -39,6 +41,8 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
     minify = false,
     sourcemap = false,
     watch = false,
+    include = [],
+    exclude = [],
   } = options
 
   const basePlugins: PluginOption[] = []
@@ -61,6 +65,8 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
     const TsScriptTargetESNext = 99 // from ts standard lib
     const dtsPlugin = (await import('vite-plugin-dts')).default
     basePlugins.push(dtsPlugin({
+      include,
+      exclude,
       staticImport: true,
       insertTypesEntry: true,
       skipDiagnostics: false,
