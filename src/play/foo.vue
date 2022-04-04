@@ -9,3 +9,9 @@ interface Props {
 
 const props = defineProps<Props>()
 </script>
+
+<style scoped lang="scss">
+div {
+  color: red;
+}
+</style>

@@ -1,2 +1,4 @@
-export { default as Foo } from './foo.vue'
+import Foo from './foo.vue'
 export const play = 'play'
+
+export default Foo

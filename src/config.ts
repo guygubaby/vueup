@@ -1,4 +1,4 @@
-import type { LibraryOptions, UserConfig } from 'vite'
+import type { LibraryOptions, PluginOption, UserConfig } from 'vite'
 
 export { type UserConfig } from 'vite'
 
@@ -11,6 +11,7 @@ interface RollupType {
 }
 
 interface MiscType {
+  plugins?: (PluginOption | PluginOption[])[]
   clean?: boolean
   jsx?: boolean
   dts?: boolean
@@ -19,7 +20,7 @@ interface MiscType {
   watch?: boolean
 }
 
-export type BuildOptions = Pick<UserConfig, 'plugins'> & LibType & RollupType & MiscType
+export type BuildOptions = LibType & RollupType & MiscType
 
 export const defineConfig = (options: BuildOptions) => options
 
@@ -28,7 +29,7 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
     plugins = [],
     entry,
     name,
-    formats = ['es', 'cjs'],
+    formats = [],
     external = [],
     outDir = 'dist',
     clean = true,
@@ -40,9 +41,11 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
     watch = false,
   } = options
 
+  const basePlugins: PluginOption[] = []
+
   const VuePlugin = (await import('@vitejs/plugin-vue')).default
 
-  plugins.push(
+  basePlugins.push(
     VuePlugin({
       reactivityTransform: true,
       isProduction: true,
@@ -51,13 +54,13 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
 
   if (jsx) {
     const VueJsx = (await import('@vitejs/plugin-vue-jsx')).default
-    plugins.push(VueJsx())
+    basePlugins.push(VueJsx())
   }
 
   if (dts) {
     const TsScriptTargetESNext = 99 // from ts standard lib
     const dtsPlugin = (await import('vite-plugin-dts')).default
-    plugins.push(dtsPlugin({
+    basePlugins.push(dtsPlugin({
       staticImport: true,
       insertTypesEntry: true,
       skipDiagnostics: false,
@@ -81,10 +84,16 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
   }
 
   return {
-    plugins,
+    plugins: [
+      ...basePlugins,
+      ...plugins,
+    ],
     build: {
       outDir,
       emptyOutDir: clean,
+      target: 'esnext',
+      sourcemap,
+      minify,
       watch: watch ? {} : null,
       lib: {
         entry,
@@ -99,11 +108,9 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
         external,
         output: {
           banner,
+          exports: 'named',
         },
       },
-      target: 'esnext',
-      sourcemap,
-      minify,
     },
   }
 }

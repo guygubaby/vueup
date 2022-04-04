@@ -57,12 +57,13 @@ const build = async() => {
 
   if (argv.watch) config.watch = true
 
-  const buildPlugin = await resolveConfig(config)
+  const buildConfig = await resolveConfig(config)
 
   logger.log(c.green('start building ...'))
   logger.empty()
 
-  await __build(buildPlugin)
+  await __build(buildConfig)
+
   config.watch && logger.empty()
   logger.log(c.green(config.watch ? 'start watching ...' : 'all done ~'))
   !config.watch && logger.empty()

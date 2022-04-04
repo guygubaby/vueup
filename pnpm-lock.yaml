@@ -11,6 +11,7 @@ specifiers:
   esno: ^0.14.1
   minimist: ^1.2.6
   picocolors: ^1.0.0
+  sass: ^1.49.11
   tsup: ^5.12.1
   typescript: ^4.6.2
   unconfig: ^0.3.2
@@ -33,11 +34,12 @@ devDependencies:
   esno: 0.14.1
   minimist: 1.2.6
   picocolors: 1.0.0
+  sass: 1.49.11
   tsup: 5.12.1_typescript@4.6.2
   typescript: 4.6.2
   unconfig: 0.3.2
-  vite: 2.8.6
-  vitest: 0.7.7
+  vite: 2.8.6_sass@1.49.11
+  vitest: 0.7.7_sass@1.49.11
   vue: 3.2.31
 
 packages:
@@ -714,7 +716,7 @@ packages:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.6
+      vite: 2.8.6_sass@1.49.11
       vue: 3.2.31
     dev: false
 
@@ -2199,6 +2201,10 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
+  /immutable/4.0.0:
+    resolution: {integrity: sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==}
+    dev: true
+
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3030,6 +3036,16 @@ packages:
       regexp-tree: 0.1.24
     dev: true
 
+  /sass/1.49.11:
+    resolution: {integrity: sha512-wvS/geXgHUGs6A/4ud5BFIWKO1nKd7wYIGimDk4q4GFkJicILActpv9ueMT4eRGSsp1BdKHuw1WwAHXbhsJELQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.0.0
+      source-map-js: 1.0.2
+    dev: true
+
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
@@ -3425,12 +3441,12 @@ packages:
       fast-glob: 3.2.11
       fs-extra: 10.0.1
       ts-morph: 14.0.0
-      vite: 2.8.6
+      vite: 2.8.6_sass@1.49.11
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /vite/2.8.6:
+  /vite/2.8.6_sass@1.49.11:
     resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -3450,11 +3466,12 @@ packages:
       postcss: 8.4.12
       resolve: 1.22.0
       rollup: 2.70.1
+      sass: 1.49.11
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.7.7:
+  /vitest/0.7.7_sass@1.49.11:
     resolution: {integrity: sha512-xU7BTB7T7GbcjFBdbZAAp/dIQUwn8bygI+cbw6Yq1oXj60oGRJ+nJ7AXvSOJyaHMTmglEoaqazyDGnCHJBXftw==}
     engines: {node: '>=v14.19.1'}
     hasBin: true
@@ -3479,7 +3496,7 @@ packages:
       local-pkg: 0.4.1
       tinypool: 0.1.2
       tinyspy: 0.3.0
-      vite: 2.8.6
+      vite: 2.8.6_sass@1.49.11
     transitivePeerDependencies:
       - less
       - sass
