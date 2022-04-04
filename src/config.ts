@@ -2,7 +2,8 @@ import type { LibraryOptions, PluginOption, UserConfig } from 'vite'
 
 export { type UserConfig } from 'vite'
 
-type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName' | 'formats'>
+type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName'>
+& Required<Pick<LibraryOptions, 'formats'>>
 
 interface RollupType {
   external?: string[]
@@ -28,14 +29,14 @@ export const defineConfig = (options: BuildOptions) => options
 
 export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> => {
   const {
-    plugins = [],
     entry,
     name,
+    plugins = [],
     formats = [],
     external = [],
+    banner,
     outDir = 'dist',
     clean = true,
-    banner,
     dts = true,
     jsx = false,
     minify = false,
