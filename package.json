@@ -1,6 +1,6 @@
 {
   "name": "@bryce-loskie/vueup",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vueup makes it easy to build vue component lib",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
