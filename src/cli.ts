@@ -62,7 +62,12 @@ const build = async() => {
   logger.log(c.green('start building ...'))
   logger.empty()
 
-  await __build(buildConfig)
+  await __build({
+    ...buildConfig,
+    // disable vite get default config
+    configFile: false,
+    envFile: false,
+  })
 
   config.watch && logger.empty()
   logger.log(c.green(config.watch ? 'start watching ...' : 'all done ~'))
