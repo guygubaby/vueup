@@ -1,27 +1,16 @@
 import { basename } from 'path'
+import { parentPort } from 'worker_threads'
 import { loadConfig } from 'unconfig'
 import { build as __build } from 'vite'
 import c from 'picocolors'
-import minimist from 'minimist'
 import type { BuildOptions } from './config'
 import { resolveConfig } from './config'
+import { logger } from './logger'
+import { MessageTypeEnums } from './enums'
 
-const logger = {
-  empty() {
-    console.log()
-  },
-  log(...args: any[]) {
-    console.log(c.magenta('vueup '), ...args)
-  },
-  error(...args: any[]) {
-    console.error(c.red('vueup '), ...args)
-  },
-  success(...args: any[]) {
-    console.log(c.green('vueup '), ...args)
-  },
-}
-
-const build = async() => {
+const build = async(argv: {
+  watch?: boolean
+}) => {
   const { config, sources } = await loadConfig<BuildOptions>({
     sources: [
       {
@@ -48,34 +37,41 @@ const build = async() => {
   const configNames = sources.map(s => basename(s)).join(', ')
   logger.log(c.green(`load config from ${c.bold(c.underline(configNames))}`))
 
-  const argv = minimist(process.argv.slice(2), {
-    boolean: ['watch'],
-    alias: {
-      w: 'watch',
-    },
-  })
-
   if (argv.watch) config.watch = true
 
   const buildConfig = await resolveConfig(config)
 
-  logger.log(c.green('start building ...'))
-  logger.empty()
-
-  await __build({
-    ...buildConfig,
-    // disable vite get default config
-    configFile: false,
-    envFile: false,
+  parentPort?.postMessage({
+    type: MessageTypeEnums.startBuild,
   })
 
-  config.watch && logger.empty()
-  logger.log(c.green(config.watch ? 'start watching ...' : 'all done ~'))
-  !config.watch && logger.empty()
+  await __build(buildConfig)
+
+  parentPort?.postMessage({
+    type: MessageTypeEnums.ok,
+  })
 }
 
-build().catch((e) => {
-  console.log(e)
-  logger.error('build failed !')
-  process.exit(1)
+parentPort?.on('message', (data) => {
+  const { type, raw } = data
+  if (type === MessageTypeEnums.build) {
+    build(raw).catch((e) => {
+      parentPort?.postMessage({
+        type: MessageTypeEnums.error,
+        raw: e,
+      })
+      parentPort?.close()
+      process.exit(1)
+    })
+  }
 })
+
+// Dev only
+if (!parentPort) {
+  build({
+    watch: false,
+  }).catch((e) => {
+    logger.error(e)
+    process.exit(1)
+  })
+}

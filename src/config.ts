@@ -1,9 +1,6 @@
-import type { LibraryOptions, PluginOption, UserConfig } from 'vite'
+import type { InlineConfig, LibraryOptions, PluginOption } from 'vite'
 
-export { type UserConfig } from 'vite'
-
-type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName'>
-& Required<Pick<LibraryOptions, 'formats'>>
+type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName' | 'formats'>
 
 interface RollupType {
   external?: string[]
@@ -20,6 +17,9 @@ interface MiscType {
   minify?: boolean
   watch?: boolean
 
+  /**
+   * Specify the inlude directories to generate dts files
+   */
   include: string | string[]
   exclude?: string | string[]
 }
@@ -28,12 +28,12 @@ export type BuildOptions = LibType & RollupType & MiscType
 
 export const defineConfig = (options: BuildOptions) => options
 
-export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> => {
+export const resolveConfig = async(options: BuildOptions): Promise<InlineConfig> => {
   const {
     entry,
     name,
     plugins = [],
-    formats = [],
+    formats = ['es', 'cjs'],
     external = [],
     banner,
     outDir = 'dist',
@@ -92,6 +92,9 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
   }
 
   return {
+    configFile: false,
+    envFile: false,
+    logLevel: 'silent',
     plugins: [
       ...basePlugins,
       ...plugins,
@@ -101,7 +104,8 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
       emptyOutDir: clean,
       target: 'esnext',
       sourcemap,
-      minify,
+      // terser has better compression than esbuild
+      minify: minify ? 'terser' : false,
       watch: watch ? {} : null,
       lib: {
         entry,
@@ -117,6 +121,9 @@ export const resolveConfig = async(options: BuildOptions): Promise<UserConfig> =
         output: {
           banner,
           exports: 'named',
+          globals: {
+            vue: 'Vue',
+          },
         },
       },
     },
