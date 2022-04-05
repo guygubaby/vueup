@@ -59,10 +59,9 @@ const build = async() => {
       }
       else if (code === 'BUNDLE_END') {
         const duration = event.duration
-        logger.log(`⚡️ Build success in ${c.cyan(c.underline(`${duration}ms`))}`)
+        logger.log(`⚡️ Build success in ${c.cyan(`${duration}ms`)}`)
       }
       else if (code === 'END') {
-        logger.newline()
         logger.log('Watching file change ...')
       }
     })
