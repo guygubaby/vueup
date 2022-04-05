@@ -1,3 +1,4 @@
+import { dirname } from 'path'
 import type { InlineConfig, LibraryOptions, PluginOption } from 'vite'
 
 type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName' | 'formats'>
@@ -20,7 +21,7 @@ interface MiscType {
   /**
    * Specify the inlude directories to generate dts files
    */
-  include: string | string[]
+  include?: string | string[]
   exclude?: string | string[]
 }
 
@@ -43,7 +44,7 @@ export const resolveConfig = async(options: BuildOptions): Promise<InlineConfig>
     minify = false,
     sourcemap = false,
     watch = false,
-    include = [],
+    include = `${dirname(entry)}/**/*`,
     exclude = [],
   } = options
 

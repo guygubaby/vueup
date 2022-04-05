@@ -20,26 +20,26 @@ import { defineConfig } from '@bryce-loskie/vueup'
 
 export default defineConfig({
   entry: './src/index.ts',
-  include: './src/*',
 })
 ```
 
 Or
 
+package.json
+
 ```json
-// package.json
 {
   "vueup": {
-    "entry": "./src/index.ts",
-    "include": "./src/*"
+    "entry": "./src/index.ts"
   }
 }
 ```
 
 ### Scripts
 
+package.json
+
 ```json
-// package.json
 {
   "scripts": {
     "dev": "vueup --watch",
@@ -51,6 +51,8 @@ Or
 ### Full configuration
 
 ```typescript
+import { dirname } from 'path'
+
 type LibraryFormats = "es" | "cjs" | "umd" | "iife"
 
 type BuildOptions = {
@@ -71,7 +73,7 @@ type BuildOptions = {
   /**
    * Specify the inlude directories to generate dts files
    */
-  include: string | string[]
+  include?: string | string[]
   exclude?: string | string[]
 }
 
@@ -86,7 +88,8 @@ const defaultOptions = {
   minify = false,
   sourcemap = false,
   watch = false,
-  include = [],
+// default include (used to generate dts)
+  include = `${dirname(entry)}/**/*`,
   exclude = [],
 }
 ```

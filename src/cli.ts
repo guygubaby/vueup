@@ -1,4 +1,3 @@
-import { basename } from 'path'
 import { parentPort } from 'worker_threads'
 import { loadConfig } from 'unconfig'
 import { build as __build } from 'vite'
@@ -11,7 +10,7 @@ import { MessageTypeEnums } from './enums'
 const build = async(argv: {
   watch?: boolean
 }) => {
-  const { config, sources } = await loadConfig<BuildOptions>({
+  const { config } = await loadConfig<BuildOptions>({
     sources: [
       {
         files: 'vueup.config',
@@ -34,8 +33,8 @@ const build = async(argv: {
     return
   }
 
-  const configNames = sources.map(s => basename(s)).join(', ')
-  logger.log(c.green(`load config from ${c.bold(c.underline(configNames))}`))
+  // const configNames = sources.map(s => basename(s)).join(', ')
+  // logger.log(c.green(`load config from ${c.bold(c.underline(configNames))}`))
 
   if (argv.watch) config.watch = true
 
