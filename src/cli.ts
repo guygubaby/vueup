@@ -1,4 +1,3 @@
-import { parentPort } from 'worker_threads'
 import { basename } from 'path'
 import { loadConfig } from 'unconfig'
 import { build as __build } from 'vite'
@@ -49,6 +48,7 @@ const build = async() => {
   const buildConfig = await resolveConfig(config)
   const rollupWatcher = await __build(buildConfig)
 
+  // watch mode
   if (config.watch) {
     // @ts-expect-error
     rollupWatcher.on('event', (event) => {
@@ -59,7 +59,7 @@ const build = async() => {
       }
       else if (code === 'BUNDLE_END') {
         const duration = event.duration
-        logger.log(`⚡️ Build success in ${c.cyan(`${duration}ms`)}`)
+        logger.log(`${c.yellow('⚡️ ')}Build success in ${c.cyan(`${duration}ms`)}`)
       }
       else if (code === 'END') {
         logger.log('Watching file change ...')
@@ -67,13 +67,12 @@ const build = async() => {
     })
   }
   else {
-    logger.log('⚡️ Build success')
+    logger.log(`${c.yellow('⚡️ ')}Build success`)
   }
 }
 
 build().catch((e) => {
   console.log(e)
   logger.error('build failed')
-  parentPort?.close()
   process.exit(1)
 })

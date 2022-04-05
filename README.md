@@ -88,7 +88,7 @@ const defaultOptions = {
   minify = false,
   sourcemap = false,
   watch = false,
-// default include (used to generate dts)
+  // default include (used to generate dts)
   include = `${dirname(entry)}/**/*`,
   exclude = [],
 }
