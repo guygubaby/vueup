@@ -1,5 +1,5 @@
 <template>
-  <div>{{ props.foo }} hihi</div>
+  <div>{{ props.foo }}</div>
 </template>
 
 <script lang="ts" setup>

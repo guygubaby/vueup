@@ -1,16 +1,15 @@
 import { parentPort } from 'worker_threads'
+import { basename } from 'path'
 import { loadConfig } from 'unconfig'
 import { build as __build } from 'vite'
 import c from 'picocolors'
+import minimist from 'minimist'
 import type { BuildOptions } from './config'
 import { resolveConfig } from './config'
 import { logger } from './logger'
-import { MessageTypeEnums } from './enums'
 
-const build = async(argv: {
-  watch?: boolean
-}) => {
-  const { config } = await loadConfig<BuildOptions>({
+const build = async() => {
+  const { config, sources } = await loadConfig<BuildOptions>({
     sources: [
       {
         files: 'vueup.config',
@@ -33,44 +32,49 @@ const build = async(argv: {
     return
   }
 
-  // const configNames = sources.map(s => basename(s)).join(', ')
-  // logger.log(c.green(`load config from ${c.bold(c.underline(configNames))}`))
+  const configNames = sources.map(s => basename(s)).join(', ')
+  logger.log(c.green(`Load config from ${c.bold(c.underline(configNames))}`))
+
+  const argv = minimist(process.argv.slice(2), {
+    boolean: ['watch'],
+    alias: {
+      w: 'watch',
+    },
+  })
 
   if (argv.watch) config.watch = true
 
+  !config.watch && logger.log('Start building ...')
+
   const buildConfig = await resolveConfig(config)
+  const rollupWatcher = await __build(buildConfig)
 
-  parentPort?.postMessage({
-    type: MessageTypeEnums.startBuild,
-  })
-
-  await __build(buildConfig)
-
-  parentPort?.postMessage({
-    type: MessageTypeEnums.ok,
-  })
-}
-
-parentPort?.on('message', (data) => {
-  const { type, raw } = data
-  if (type === MessageTypeEnums.build) {
-    build(raw).catch((e) => {
-      parentPort?.postMessage({
-        type: MessageTypeEnums.error,
-        raw: e,
-      })
-      parentPort?.close()
-      process.exit(1)
+  if (config.watch) {
+    // @ts-expect-error
+    rollupWatcher.on('event', (event) => {
+      const { code } = event
+      if (code === 'START') {
+        logger.newline()
+        logger.log('Start building ...')
+      }
+      else if (code === 'BUNDLE_END') {
+        const duration = event.duration
+        logger.log(`⚡️ Build success in ${c.cyan(c.underline(`${duration}ms`))}`)
+      }
+      else if (code === 'END') {
+        logger.newline()
+        logger.log('Watching file change ...')
+      }
     })
   }
-})
-
-// Dev only
-if (!parentPort) {
-  build({
-    watch: false,
-  }).catch((e) => {
-    logger.error(e)
-    process.exit(1)
-  })
+  else {
+    logger.log('⚡️ Build success')
+  }
 }
+
+build().catch((e) => {
+  console.log(e)
+  logger.error('build failed')
+  parentPort?.close()
+  process.exit(1)
+})
