@@ -19,10 +19,8 @@ pnpm i @bryce-loskie/vueup -D
 import { defineConfig } from '@bryce-loskie/vueup'
 
 export default defineConfig({
-  entry: './src/raw/index.ts',
-  external: ['vue'],
-  formats: ['es', 'cjs'],
-  clean: true,
+  entry: './src/index.ts',
+  include: './src/*',
 })
 ```
 
@@ -33,7 +31,7 @@ Or
 {
   "vueup": {
     "entry": "./src/index.ts",
-    "external": ["vue"]
+    "include": "./src/*"
   }
 }
 ```
@@ -47,6 +45,49 @@ Or
     "dev": "vueup --watch",
     "build": "vueup",
   }
+}
+```
+
+### Full configuration
+
+```typescript
+type LibraryFormats = "es" | "cjs" | "umd" | "iife"
+
+type BuildOptions = {
+  entry: string;
+  name?: string | undefined;
+  fileName?: string | ((format: ModuleFormat) => string) | undefined;
+  formats?: LibraryFormats[] | undefined;
+  external?: string[]
+  banner?: string | (() => string | Promise<string>)
+  outDir?: string
+  plugins?: (PluginOption | PluginOption[])[]
+  clean?: boolean
+  jsx?: boolean
+  dts?: boolean
+  sourcemap?: boolean
+  minify?: boolean
+  watch?: boolean
+  /**
+   * Specify the inlude directories to generate dts files
+   */
+  include: string | string[]
+  exclude?: string | string[]
+}
+
+const defaultOptions = {
+  plugins = [vue()], // if dts is true, will include `dts()`, if jsx is true, will include `vueJsx()`
+  formats = ['es', 'cjs'],
+  external = ['vue'],
+  outDir = 'dist',
+  clean = true,
+  dts = true,
+  jsx = false,
+  minify = false,
+  sourcemap = false,
+  watch = false,
+  include = [],
+  exclude = [],
 }
 ```
 

@@ -32,10 +32,10 @@ export const resolveConfig = async(options: BuildOptions): Promise<InlineConfig>
   const {
     entry,
     name,
+    banner,
     plugins = [],
     formats = ['es', 'cjs'],
-    external = [],
-    banner,
+    external = ['vue'],
     outDir = 'dist',
     clean = true,
     dts = true,
