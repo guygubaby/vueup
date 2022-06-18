@@ -41,7 +41,7 @@
     "lint:fix": "pnpm lint -- --fix"
   },
   "devDependencies": {
-    "@bryce-loskie/eslint-config": "^1.0.7",
+    "@bryce-loskie/eslint-config": "2.0.2",
     "@types/minimist": "^1.2.2",
     "@types/node": "^17.0.22",
     "bumpp": "^7.1.1",
