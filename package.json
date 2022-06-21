@@ -35,7 +35,7 @@
   "scripts": {
     "prepublishOnly": "pnpm build",
     "build": "tsup",
-    "dev": "esno src/cli.ts -w",
+    "dev": "esno src/cli.ts",
     "release": "bumpp --commit --push --tag",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "pnpm lint -- --fix"

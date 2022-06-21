@@ -1,4 +1,7 @@
 import Foo from './foo.vue'
-export const play = 'play'
+import Bar from './bar.vue'
 
-export default Foo
+export {
+  Foo,
+  Bar,
+}

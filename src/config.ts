@@ -1,5 +1,6 @@
 import { dirname } from 'path'
 import type { InlineConfig, LibraryOptions, PluginOption } from 'vite'
+import { preTransform } from './preTransform'
 
 type LibType = Pick<LibraryOptions, 'entry' | 'name' | 'fileName' | 'formats'>
 
@@ -38,16 +39,18 @@ export const resolveConfig = async (options: BuildOptions): Promise<InlineConfig
     external = ['vue'],
     outDir = 'dist',
     clean = true,
-    dts = true,
     jsx = false,
     minify = false,
     sourcemap = false,
     watch = false,
+    dts = true,
     include = `${dirname(entry)}/**/*`,
     exclude = [],
   } = options
 
-  const basePlugins: PluginOption[] = []
+  const basePlugins: PluginOption[] = [
+    preTransform(),
+  ]
 
   const VuePlugin = (await import('@vitejs/plugin-vue')).default
 

@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { FooType } from './types'
+type FooType = string | number
 
 interface Props {
   foo: FooType
@@ -11,9 +11,3 @@ interface Props {
 
 const { foo } = defineProps<Props>()
 </script>
-
-<style scoped lang="scss">
-div {
-  color: red;
-}
-</style>
