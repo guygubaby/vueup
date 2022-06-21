@@ -1,13 +1,15 @@
 <template>
-  <div>{{ props.foo }}</div>
+  <div>{{ foo }}</div>
 </template>
 
 <script lang="ts" setup>
+import type { FooType } from './types'
+
 interface Props {
-  foo: string
+  foo: FooType
 }
 
-const props = defineProps<Props>()
+const { foo } = defineProps<Props>()
 </script>
 
 <style scoped lang="scss">

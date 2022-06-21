@@ -2,9 +2,19 @@
   "name": "@bryce-loskie/vueup",
   "version": "1.0.13",
   "description": "Vueup makes it easy to build vue component lib",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "author": "guygubaby <guygubaby@gmail.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/guygubaby",
+  "homepage": "https://github.com/guygubaby/vueup#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guygubaby/vueup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guygubaby/vueup/issues"
+  },
+  "keywords": [],
+  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -12,22 +22,12 @@
       "type": "./dist/index.d.ts"
     }
   },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "bin": {
     "vueup": "./bin/vueup.js"
   },
-  "funding": "https://github.com/sponsors/guygubaby",
-  "author": "guygubaby <guygubaby@gmail.com>",
-  "license": "MIT",
-  "sideEffects": false,
-  "bugs": {
-    "url": "https://github.com/guygubaby/vueup/issues"
-  },
-  "homepage": "https://github.com/guygubaby/vueup#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/guygubaby/vueup.git"
-  },
-  "keywords": [],
   "files": [
     "dist",
     "bin"
@@ -40,31 +40,31 @@
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "pnpm lint -- --fix"
   },
-  "devDependencies": {
-    "@bryce-loskie/eslint-config": "^1.0.7",
-    "@types/minimist": "^1.2.2",
-    "@types/node": "^17.0.22",
-    "bumpp": "^7.1.1",
-    "eslint": "^8.11.0",
-    "esno": "^0.14.1",
-    "minimist": "^1.2.6",
-    "picocolors": "^1.0.0",
-    "sass": "^1.49.11",
-    "tsup": "^5.12.1",
-    "typescript": "^4.6.2",
-    "unconfig": "^0.3.2",
-    "vite": "^2.8.6",
-    "vitest": "0.8.4",
-    "vue": "^3.2.31"
-  },
   "peerDependencies": {
     "typescript": "^4.0.0",
     "vite": "^2.0.0",
     "vue": "^3.0.0"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^2.3.1",
-    "@vitejs/plugin-vue-jsx": "^1.3.9",
-    "vite-plugin-dts": "^1.0.5"
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "vite-plugin-dts": "^1.2.0"
+  },
+  "devDependencies": {
+    "@bryce-loskie/eslint-config": "^2.0.2",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^18.0.0",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.18.0",
+    "esno": "^0.16.3",
+    "minimist": "^1.2.6",
+    "picocolors": "^1.0.0",
+    "sass": "^1.52.3",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4",
+    "unconfig": "^0.3.4",
+    "vite": "^2.9.12",
+    "vitest": "0.15.1",
+    "vue": "^3.2.37"
   }
 }

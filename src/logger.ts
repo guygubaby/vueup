@@ -5,7 +5,7 @@ export const logger = {
     console.log()
   },
   log(...args: any[]) {
-    console.log(c.magenta('vueup '), ...args)
+    console.log(c.cyan('vueup '), ...args)
   },
   error(...args: any[]) {
     console.error(c.red('vueup '), ...args)

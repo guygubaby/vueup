@@ -1,13 +1,13 @@
 import { basename } from 'path'
 import { loadConfig } from 'unconfig'
-import { build as __build } from 'vite'
+import { build as viteBuild } from 'vite'
 import c from 'picocolors'
 import minimist from 'minimist'
 import type { BuildOptions } from './config'
 import { resolveConfig } from './config'
 import { logger } from './logger'
 
-const build = async() => {
+const build = async () => {
   const { config, sources } = await loadConfig<BuildOptions>({
     sources: [
       {
@@ -41,12 +41,13 @@ const build = async() => {
     },
   })
 
-  if (argv.watch) config.watch = true
+  if (argv.watch)
+    config.watch = true
 
   !config.watch && logger.log('Start building ...')
 
   const buildConfig = await resolveConfig(config)
-  const rollupWatcher = await __build(buildConfig)
+  const rollupWatcher = await viteBuild(buildConfig)
 
   // watch mode
   if (config.watch) {
@@ -63,6 +64,7 @@ const build = async() => {
       }
       else if (code === 'END') {
         logger.log('Watching file change ...')
+        logger.newline()
       }
     })
   }

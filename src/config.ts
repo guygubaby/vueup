@@ -17,9 +17,8 @@ interface MiscType {
   sourcemap?: boolean
   minify?: boolean
   watch?: boolean
-
   /**
-   * Specify the inlude directories to generate dts files
+   * Specify the include directories to generate dts files
    */
   include?: string | string[]
   exclude?: string | string[]
@@ -29,7 +28,7 @@ export type BuildOptions = LibType & RollupType & MiscType
 
 export const defineConfig = (options: BuildOptions) => options
 
-export const resolveConfig = async(options: BuildOptions): Promise<InlineConfig> => {
+export const resolveConfig = async (options: BuildOptions): Promise<InlineConfig> => {
   const {
     entry,
     name,
@@ -113,7 +112,8 @@ export const resolveConfig = async(options: BuildOptions): Promise<InlineConfig>
         name,
         formats,
         fileName: (format) => {
-          if (format === 'es') return 'index.mjs'
+          if (format === 'es')
+            return 'index.mjs'
           return 'index.js'
         },
       },
